@@ -2,10 +2,12 @@ export class Product {
     private id : number;
     private name : string;
     private description : string;
-    constructor (id : number, name: string, description : string) {
+    private price : number;
+    constructor (id : number, name: string, description : string, price : number) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.price = price;
     }
 
     getName () : string  {
@@ -18,5 +20,9 @@ export class Product {
 
     getId () : number  {
         return this.id;
+    }
+
+    getPrice () : number {
+        return this.price;
     }
 }

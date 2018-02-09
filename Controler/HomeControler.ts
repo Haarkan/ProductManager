@@ -4,7 +4,7 @@ import * as $ from 'jquery';
 import { Product } from "../Model/ProductType";
 import { ProductsService } from "../Services/ProductsService";
 import { View } from "../View/View";
-import { Modal } from "../DynamicComponents/Modal";
+import { ProductModal } from "../DynamicComponents/ProductModal";
 
 export class HomeControler extends Controler {
 
@@ -14,7 +14,7 @@ export class HomeControler extends Controler {
         let products: Array<Product> = this.productsService.getTenProduct(range);
         // On vide le conteneur
         $('#productList').html('');
-        
+
         // Gestion du DOM
         $(document).ready(function () {
 
@@ -22,15 +22,15 @@ export class HomeControler extends Controler {
             products.forEach(product => {
                 // On rempli le conteneur
                 $('#productList').append('<div>' +
-                    '<div id="product' + product.getId() + '">' + product.getName() + '<br/></div>' +
-                    '<button type="button" id="btAddToCart' + product.getId() + '" class="btn btn-success">Ajouter au panier</button></div><br/>');
+                    '<div id="product' + product.getId() + '">' + product.getName() + ' - ' + product.getPrice() + '$CA<br/></div>' +
+                    '<button type="button" class="btAddToCart' + product.getId() + ' btn btn-success">Ajouter au panier</button></div><br/>');
                 // Click sur le produit => on affiche les détails dans un modal
 
                 $(document).off('click', '#product' + product.getId()).on('click', '#product' + product.getId(), () => {
-                    let modal: Modal = new Modal(product.getName(), product.getDescription(), 'modal');
+                    let modal: ProductModal = new ProductModal(product, 'modal');
                 });
                 // Click sur ajouter au panier
-                $(document).off('click', '#btAddToCart' + product.getId()).on('click', '#btAddToCart' + product.getId(), () => {
+                $(document).off('click', '.btAddToCart' + product.getId()).on('click', '.btAddToCart' + product.getId(), () => {
                     alert('ici gérer ajout au panier ---- produit n°' + product.getId());
                 });
             });
@@ -57,7 +57,7 @@ export class HomeControler extends Controler {
         }
     }
 
- 
+
     constructor() {
         super(new HomeView());
 

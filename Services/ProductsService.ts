@@ -18,7 +18,7 @@ export class ProductsService {
                 // Construction du tableau de produit à partir du JSON
                 // Il y a surement une méthode plus optimisée
                 data.forEach(product => {
-                    products.push(new Product (product.id, product.name, product.description));
+                    products.push(new Product (product.id, product.name, product.description, product.price));
                 });
             }
             
