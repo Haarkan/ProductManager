@@ -1,0 +1,32 @@
+{
+  "name": "Laboratoire1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && webpack --config webpack.config.js --progress --profile --bail"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "@types/node": "^9.4.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "css-loader": "^0.28.9",
+    "html-loader": "^0.5.5",
+    "postcss": "^5.0.6",
+    "postcss-discard-comments": "^2.0.4",
+    "postcss-minify-gradients": "^1.0.5",
+    "rimraf": "^2.6.2",
+    "style-loader": "^0.20.1",
+    "ts-loader": "^3.3.1",
+    "typescript": "^2.7.1",
+    "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9"
+  }
+}
