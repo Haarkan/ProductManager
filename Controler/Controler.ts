@@ -13,6 +13,9 @@ export class Controler {
         this.view.setView();
     }
 
+    public unload () : void {
+        this.view.hideView();
+    }
   //  public initControler () : void {
     //    this.display();
     //}
