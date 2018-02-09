@@ -18,12 +18,17 @@ export class HomeControler extends Controler {
         // Gestion du DOM
         $(document).ready(function () {
 
+            let i : number = 0;
             // Affichage des produits
             products.forEach(product => {
+                console.log(i);
+                if(i == 5)
+                    $('#productList').append('<div class="w-100"></div>');
                 // On rempli le conteneur
-                $('#productList').append('<div>' +
-                    '<div id="product' + product.getId() + '">' + product.getName() + ' - ' + product.getPrice() + '$CA<br/></div>' +
-                    '<button type="button" class="btAddToCart' + product.getId() + ' btn btn-success">Ajouter au panier</button></div><br/>');
+                $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="width:33%"> <div class="card-body">' +
+                    '<h4 class="card-title"> '+ product.getName() + '</h4>'  +
+                    '<div>' +  product.getPrice() + '$CA<br/></div>' +
+                    '<button type="button" class="btAddToCart' + product.getId() + ' btn btn-success">Ajouter au panier</button></div></div><br/>');
                 // Click sur le produit => on affiche les détails dans un modal
 
                 $(document).off('click', '#product' + product.getId()).on('click', '#product' + product.getId(), () => {
@@ -33,6 +38,8 @@ export class HomeControler extends Controler {
                 $(document).off('click', '.btAddToCart' + product.getId()).on('click', '.btAddToCart' + product.getId(), () => {
                     alert('ici gérer ajout au panier ---- produit n°' + product.getId());
                 });
+
+                ++i;
             });
 
 
