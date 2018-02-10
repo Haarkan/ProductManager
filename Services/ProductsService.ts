@@ -45,8 +45,19 @@ export class ProductsService {
 
     }
 
-    public editProduct(product: Product): string {
-        return "";
+    public editProduct(product: Product, newName : string, newDescription : string, newPrice : number): string {
+        this.fakeDataBase.forEach(finded => {
+            if (finded.getId() == product.getId()) {
+                finded.setName(newName);
+                finded.setDescription(newDescription);
+                finded.setPrice(newPrice);
+                alert('produit OK');
+                return "Produit modifié";
+            }
+        });
+
+        return "erreur";
+        
     }
 
     public getTenProduct(range: number): Array<Product> {

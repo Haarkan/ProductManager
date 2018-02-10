@@ -25,4 +25,16 @@ export class Product {
     getPrice () : number {
         return this.price;
     }
+
+    setName (name : string) : void {
+        this.name = name;
+    }
+
+    setDescription (description : string) : void {
+        this.description = description;
+    }
+
+    setPrice (price : number) : void {
+        this.price = price;
+    }
 }

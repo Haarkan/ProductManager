@@ -15,18 +15,18 @@ export class AdminControler extends Controler {
         $('#productList').html('');
 
         // Gestion du DOM
-        $(document).ready(function () {
+        $(document).ready(() => {
 
-            let i : number = 0;
+            let i: number = 0;
             // Affichage des produits
             products.forEach(product => {
                 console.log(i);
-                if(i == 5)
+                if (i == 5)
                     $('#productList').append('<div class="w-100"></div>');
                 // On rempli le conteneur
                 $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="width:33%"> <div class="card-body">' +
-                    '<h4 class="card-title"> '+ product.getName() + '</h4>'  +
-                    '<div>' +  product.getPrice() + '$CA<br/></div>' +
+                    '<h4 class="card-title"> ' + product.getName() + '</h4>' +
+                    '<div>' + product.getPrice() + '$CA<br/></div>' +
                     '<button type="button" class="btAdmin btDel' + product.getId() + ' btn btn-danger">Suppr</button>' +
                     '</div></div><br/>');
                 // Click sur le produit => on affiche les détails dans un modal
@@ -36,7 +36,9 @@ export class AdminControler extends Controler {
                 });
 
                 $(document).off('click', '.btEdit' + product.getId()).on('click', '.btEdit' + product.getId(), () => {
-                    this.editProduct
+                    let edit : string = this.editProduct(product, $('#editName').val(), $('#editDescription').val(), $('#editPrice').val());
+                    if (edit != "Erreur")
+                        this.showProducts(0);
                 });
                 // Click sur ajouter au panier 
                 $(document).off('click', '.btAddToCart' + product.getId()).on('click', '.btAddToCart' + product.getId(), () => {
@@ -52,8 +54,8 @@ export class AdminControler extends Controler {
     }
 
 
-    public editProduct (product : Product) : string {
-        return "";
+    public editProduct(product: Product, newName : string, newDescription : string, newPrice : number): string {
+        return ProductsService.getInstance().editProduct(product, newName, newDescription, newPrice);
     }
     public showPagingButtons(): void {
         let nbProducts: number = ProductsService.getInstance().countProducts();
@@ -67,12 +69,14 @@ export class AdminControler extends Controler {
                 $(document).off('click', '#btnPageProductAdmin' + i).on('click', '#btnPageProductAdmin' + i, () => {
                     this.showProducts(i);
                 });
+
+              
             }
 
         }
     }
 
-    public load () : void {
+    public load(): void {
         this.display();
         this.showProducts(0);
         this.showPagingButtons();
