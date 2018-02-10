@@ -21,14 +21,14 @@ export class HomeControler extends Controler {
                 if(i == 5)
                     $('#productList').append('<div class="w-100"></div>');
                 // On rempli le conteneur
-                console.log('affichage');
                 $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="width:33%"> <div class="card-body">' +
                     '<h4 class="card-title"> '+ product.getName() + '</h4>'  +
                     '<div>' +  product.getPrice() + '$CA<br/></div>' +
+                    '<button type="button" class="btPlus btPlus' + product.getId() + ' btn btn-info">+</button>' +
                     '<button type="button" class="btAddToCart' + product.getId() + ' btn btn-success">Ajouter au panier</button></div></div><br/>');
                 // Click sur le produit => on affiche les détails dans un modal
 
-                $(document).off('click', '#product' + product.getId()).on('click', '#product' + product.getId(), () => {
+                $(document).off('click', '.btPlus' + product.getId()).on('click', '.btPlus' + product.getId(), () => {
                     let modal: ProductModal = new ProductModal(product, 'modal');
                 });
                 // Click sur ajouter au panier

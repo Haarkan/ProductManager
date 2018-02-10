@@ -15,28 +15,38 @@ export class AdminControler extends Controler {
         $('#productList').html('');
 
         // Gestion du DOM
-        $(document).ready(() => {
 
             let i: number = 0;
             // Affichage des produits
             products.forEach(product => {
-                console.log(i);
                 if (i == 5)
                     $('#productList').append('<div class="w-100"></div>');
                 // On rempli le conteneur
                 $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="width:33%"> <div class="card-body">' +
                     '<h4 class="card-title"> ' + product.getName() + '</h4>' +
                     '<div>' + product.getPrice() + '$CA<br/></div>' +
+                    '<button type="button" class="btAdmin btPlus' + product.getId() + ' btn btn-info">+</button>' +
                     '<button type="button" class="btAdmin btDel' + product.getId() + ' btn btn-danger">Suppr</button>' +
                     '</div></div><br/>');
                 // Click sur le produit => on affiche les détails dans un modal
 
-                $(document).off('click', '#product' + product.getId()).on('click', '#product' + product.getId(), () => {
+                $(document).off('click', '.btPlus' + product.getId()).on('click', '.btPlus' + product.getId(), () => {
                     let modal: AdminProductModal = new AdminProductModal(product, 'modal');
                 });
 
-                $(document).off('click', '.btEdit' + product.getId()).on('click', '.btEdit' + product.getId(), () => {
-                    let edit : string = this.editProduct(product, $('#editName').val(), $('#editDescription').val(), $('#editPrice').val());
+                $(document).off('click', '.btDel' + product.getId()).on('click', '.btDel' + product.getId(), () => {
+                    let edit : string = this.deleteProduct(product);
+                    // si la suppression a fonctionée on refresh 
+                    if (edit != "Erreur") {
+                        this.showProducts(0);
+                        this.showPagingButtons();   
+                    }
+                });
+
+                  $(document).off('click', '.btEdit' + product.getId()).on('click', '.btEdit' + product.getId(), () => {
+                    // pourquoi si l'utilisateur entre une string ça plante pas ???
+                    let pr : number = $('#editPrice').val();
+                    let edit : string = this.editProduct(product, $('#editName').val(), $('#editDescription').val(), pr);
                     if (edit != "Erreur")
                         this.showProducts(0);
                 });
@@ -47,25 +57,22 @@ export class AdminControler extends Controler {
 
                 ++i;
             });
-
-
-        })
-
     }
 
-
+    public deleteProduct (product : Product) : string {
+        return ProductsService.getInstance().deleteProduct(product);
+    }
     public editProduct(product: Product, newName : string, newDescription : string, newPrice : number): string {
         return ProductsService.getInstance().editProduct(product, newName, newDescription, newPrice);
     }
     public showPagingButtons(): void {
+        $('#pageSelection').html('');
         let nbProducts: number = ProductsService.getInstance().countProducts();
         for (let i: number = 0; i < nbProducts; ++i) {
 
             if (i % 10 == 0) {
-                $(document).ready(function () {
                     $('#pageSelection').append('<button type="button" id="btnPageProductAdmin' + i + '" class="btn">' + (i + 10) / 10 + '</button>');
 
-                });
                 $(document).off('click', '#btnPageProductAdmin' + i).on('click', '#btnPageProductAdmin' + i, () => {
                     this.showProducts(i);
                 });

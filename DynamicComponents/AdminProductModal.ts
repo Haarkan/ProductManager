@@ -13,7 +13,7 @@ export class AdminProductModal {
         html += '</div>';
         html += '<div class="modal-body">';
         html += '<input id="editDescription" type="text" class="form-control" value="' + product.getDescription() + '"><br/>'; 
-        html += '<input id="editPrice" type="text" class="form-control col-sm" value="'+ product.getPrice() +  '"><span>$CA</span>';
+        html += '<input id="editPrice" type="number" class="form-control col-sm" value="'+ product.getPrice() +  '" pattern="[0-9]{*}"><span>$CA</span>';
         html += '</div>';
         html += '<div class="modal-footer">';
         html += '<button type="button" class="btAdmin btEdit' + product.getId() + ' btn btn-warning">Valider l\'édition</button>';

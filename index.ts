@@ -29,7 +29,7 @@ $(document).ready(() => {
         homeControler.unload();
         connectionControler.load();
 
-        $(document).on('submit', '#connectionForm', () => {
+        $(document).on('submit', '#connectionForm', () => { 
             if (connectionControler.connectUser($('#username').val(), $('#pwd').val()) == 'OK') {
                 connectionControler.unload();
                 adminControler.load();
