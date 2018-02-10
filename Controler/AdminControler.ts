@@ -65,14 +65,14 @@ export class AdminControler extends Controler {
     public editProduct(product: Product, newName : string, newDescription : string, newPrice : number): string {
         return ProductsService.getInstance().editProduct(product, newName, newDescription, newPrice);
     }
+
     public showPagingButtons(): void {
         $('#pageSelection').html('');
         let nbProducts: number = ProductsService.getInstance().countProducts();
         for (let i: number = 0; i < nbProducts; ++i) {
-
+            // on crée un bouton tout les 10 produits
             if (i % 10 == 0) {
-                    $('#pageSelection').append('<button type="button" id="btnPageProductAdmin' + i + '" class="btn">' + (i + 10) / 10 + '</button>');
-
+                $('#pageSelection').append('<button type="button" id="btnPageProductAdmin' + i + '" class="btn">' + (i + 10) / 10 + '</button>');
                 $(document).off('click', '#btnPageProductAdmin' + i).on('click', '#btnPageProductAdmin' + i, () => {
                     this.showProducts(i);
                 });

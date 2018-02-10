@@ -21,8 +21,10 @@ export class HomeControler extends Controler {
                 if(i == 5)
                     $('#productList').append('<div class="w-100"></div>');
                 // On rempli le conteneur
-                $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="width:33%"> <div class="card-body">' +
+                // 1 produit = 1 card. PROBLEME : l'image reste la même :(
+                $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="text-align:center;"> <div class="card-body">' +
                     '<h4 class="card-title"> '+ product.getName() + '</h4>'  +
+                    '<img class="card-img-top" src="http://lorempixel.com/200/200" style="height:18%; width:auto;" alt="Card image">'+
                     '<div>' +  product.getPrice() + '$CA<br/></div>' +
                     '<button type="button" class="btPlus btPlus' + product.getId() + ' btn btn-info">+</button>' +
                     '<button type="button" class="btAddToCart' + product.getId() + ' btn btn-success">Ajouter au panier</button></div></div><br/>');
