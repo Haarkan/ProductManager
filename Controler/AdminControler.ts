@@ -24,6 +24,7 @@ export class AdminControler extends Controler {
                 // On rempli le conteneur
                 $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="width:33%"> <div class="card-body">' +
                     '<h4 class="card-title"> ' + product.getName() + '</h4>' +
+                    '<img class="card-img-top" src="http://lorempixel.com/200/200" style="height:18%; width:auto;" alt="Card image">'+
                     '<div>' + product.getPrice() + '$CA<br/></div>' +
                     '<button type="button" class="btAdmin btPlus' + product.getId() + ' btn btn-info">+</button>' +
                     '<button type="button" class="btAdmin btDel' + product.getId() + ' btn btn-danger">Suppr</button>' +
