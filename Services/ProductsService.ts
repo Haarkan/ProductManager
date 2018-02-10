@@ -1,57 +1,69 @@
 import { Product } from "../Model/ProductType";
 import * as $ from 'jquery';
+
 export class ProductsService {
 
 
-    public buildTheFakeDataBase() : Array<Product> {
+    private fakeDataBase: Array<Product>;
+    private static _instance: ProductsService = new ProductsService();
 
-        // Ce magnifique tableau servira de serveur
-       
-        let products: Array<Product> = new Array<Product>();;
+    constructor() {
+        if (ProductsService._instance) {
+            return ProductsService._instance;
+        }
+        this.buildTheFakeDataBase();
+        ProductsService._instance = this;
+    }
+
+    public static getInstance(): ProductsService {
+        return ProductsService._instance;
+    }
+
+    public buildTheFakeDataBase(): void {
+
+        // Ce magnifique tableau servira de serveur 
+        this.fakeDataBase = new Array<Product>();
 
         // J'ai tout mis dans un JSON pour pas avoir à créer 12000 objets à la main
         $.ajax({
             type: "GET",
             url: "/out/datas/products.json",
             async: false,
-            success: function(data) {
+            success: (data) => {
                 // Construction du tableau de produit à partir du JSON
                 // Il y a surement une méthode plus optimisée
                 data.forEach(product => {
-                    products.push(new Product (product.id, product.name, product.description, product.price));
+                    this.fakeDataBase.push(new Product(product.id, product.name, product.description, product.price));
                 });
             }
-            
+
         });
-
-        return products;
-
-
     }
     public getAllProducts(): Array<Product> {
 
-        return this.buildTheFakeDataBase();
+        return this.fakeDataBase;
 
     }
 
-    public getTenProduct(range : number) : Array<Product> {
-        let datas : Array<Product> = this.buildTheFakeDataBase();
+    public editProduct(product: Product): string {
+        return "";
+    }
 
-        if (range != 0) 
-            return datas.slice(range, range + 10);
-        else 
-             return datas.slice(0, 10);
-        
+    public getTenProduct(range: number): Array<Product> {
 
-        
+        if (range != 0)
+            return this.fakeDataBase.slice(range, range + 10);
+        else
+            return this.fakeDataBase.slice(0, 10);
+
+
+
         // Sans serveur on devra malheuresement travailler sur l'intégralité du tableau, cependant je ne
         // renvois que les données situées dans l'interval voulut. 
     }
 
-    public countProducts () : number {
-        // Si on avait un serveur on demanderait un count ce qui serait beaaaauuucoup moins lourd
-        let datas : Array<Product> = this.buildTheFakeDataBase();
-        return datas.length;
+    public countProducts(): number {
+        return this.fakeDataBase.length;
     }
 
 }

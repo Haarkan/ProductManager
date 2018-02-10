@@ -1,5 +1,5 @@
 import { View } from "../View/View";
-import $ from "jquery";
+import * as $ from "jquery";
 
 export class Controler {
 
@@ -10,6 +10,7 @@ export class Controler {
     }
 
     public display () : void {
+
         this.view.setView();
     }
 

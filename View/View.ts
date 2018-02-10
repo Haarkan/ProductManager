@@ -9,7 +9,15 @@ export class View {
     }
 
     public setView () : void {
-        $('#MainContent').load(this.viewPath);
+          $.ajax({
+            type: "GET",
+            url: this.viewPath,
+            async: false,
+            success: (data) => {
+                $('#MainContent').html(data);
+            }
+
+        });
     }
 
     public hideView () : void {

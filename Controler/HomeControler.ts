@@ -8,23 +8,20 @@ import { ProductModal } from "../DynamicComponents/ProductModal";
 
 export class HomeControler extends Controler {
 
-    private productsService: ProductsService;
-
     public showProducts(range: number): void {
-        let products: Array<Product> = this.productsService.getTenProduct(range);
+        let products: Array<Product> = ProductsService.getInstance().getTenProduct(range);
         // On vide le conteneur
         $('#productList').html('');
 
         // Gestion du DOM
-        $(document).ready(function () {
 
             let i : number = 0;
             // Affichage des produits
             products.forEach(product => {
-                console.log(i);
                 if(i == 5)
                     $('#productList').append('<div class="w-100"></div>');
                 // On rempli le conteneur
+                console.log('affichage');
                 $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="width:33%"> <div class="card-body">' +
                     '<h4 class="card-title"> '+ product.getName() + '</h4>'  +
                     '<div>' +  product.getPrice() + '$CA<br/></div>' +
@@ -43,19 +40,16 @@ export class HomeControler extends Controler {
             });
 
 
-        })
 
     }
 
     public showPagingButtons(): void {
-        let nbProducts: number = this.productsService.countProducts();
+        let nbProducts: number = ProductsService.getInstance().countProducts();
         for (let i: number = 0; i < nbProducts; ++i) {
 
             if (i % 10 == 0) {
-                $(document).ready(function () {
                     $('#pageSelection').append('<button type="button" id="btnPageProduct' + i + '" class="btn">' + (i + 10) / 10 + '</button>');
 
-                });
                 $(document).on('click', '#btnPageProduct' + i, () => {
                     this.showProducts(i);
                 });
@@ -64,15 +58,21 @@ export class HomeControler extends Controler {
         }
     }
 
+    public load () : void {
 
+        // la page html est chargée après l'appel des show
+        this.display();
+        this.showProducts(0);
+        this.showPagingButtons();
+    }
+
+    public shows () : void {
+        
+    }
     constructor() {
         super(new HomeView());
 
-        this.productsService = new ProductsService();
-        // Gestion des évenements
-
-        this.showProducts(0);
-        this.showPagingButtons();
+      
     }
 
 

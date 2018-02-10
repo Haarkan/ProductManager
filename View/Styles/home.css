@@ -9,3 +9,8 @@
 .productBox:hover {
     background-color:#cdd2d8;
 }
+
+.btAdmin {
+    height: 5%;
+    width:5%;
+}
