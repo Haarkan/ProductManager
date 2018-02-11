@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './out/Styles/home.css';
 import * as $ from 'jquery';
 import { ConnectionControler } from "./Controler/ConnectionControler";
+import { PanierControler } from "./Controler/PanierControler";
 import { AdminControler } from "./Controler/AdminControler";
 import { ProductsService } from "./Services/ProductsService";
 
@@ -20,6 +21,8 @@ homeControler.load();
 
 let adminControler : AdminControler = new AdminControler();
 let connectionControler :ConnectionControler = new ConnectionControler();
+let panierControler :PanierControler = new PanierControler();
+
 
 let isUserConnected : boolean = false;
 $(document).ready(() => {
@@ -50,6 +53,11 @@ $(document).ready(() => {
         }
     });
 
+    // panier
+    $('#panierNav').click (() => {
+        homeControler.unload();
+        panierControler.load();
+    });
     
 });
 // Ici mettre la gestion de changement de controleur lors d'un click sur un bouton du menu
