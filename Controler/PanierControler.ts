@@ -8,7 +8,14 @@ import { ProductModal } from "../DynamicComponents/ProductModal";
 import { PanierView } from "../View/PanierView";
 
 export class PanierControler extends Controler {
+    //nb item dans le panier : soit faire un tableau de produit dans le panier avec un tableau 
+    //                          de quantité de produit
+    //                          ou alors faire ça avec des pointer
+    static nbItemPanier : number = 0;
 
+    //
+// ************************ ctrl+C ctrl+V du Home controlleur : *****************************************
+//                          reste juste à afficher les produits qui ont été mis dans le panier
     public showProducts(range: number): void {
         let products: Array<Product> = ProductsService.getInstance().getTenProduct(range);
         // On vide le conteneur
@@ -74,7 +81,7 @@ export class PanierControler extends Controler {
     }
     constructor() {
         super(new PanierView());
-
+        
       
     }
 
