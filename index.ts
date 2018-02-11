@@ -36,11 +36,24 @@ $(document).ready(() => {
             if (connectionControler.connectUser($('#username').val(), $('#pwd').val()) == 'OK') {
                 connectionControler.unload();
                 adminControler.load();
+                $('#connectionNav').hide();
+                $('#disconectionNav').show();
+                $('#panierNav').hide();
+
                 isUserConnected = true;
             }
         });
     });
 
+    // deconnexion 
+    $('#disconectionNav').click(() => {
+        adminControler.unload();
+        homeControler.load();
+        $('#connectionNav').show();
+        $('#disconectionNav').hide();
+        $('#panierNav').show();
+        isUserConnected = false;
+    })
     // home
     $('#home').click(() => {
         if (isUserConnected) {
