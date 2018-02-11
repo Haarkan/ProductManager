@@ -16,11 +16,16 @@ export class PanierControler extends Controler {
         $('#productList').html('');
 
         // Gestion du DOM
+        if (CartService.getInstance().countProducts() == 0) {
+            $('#btBuyCart').hide();
+        } else {
+            $('#btBuyCart').show();
+        }
 
         let i: number = 0;
         // Affichage des produits
         products.forEach(product => {
-           
+
             // On rempli le conteneur
             // 1 produit = 1 card. PROBLEME : l'image reste la même :(
             $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm-4 productBox" style="text-align:center;"> <div class="card-body">' +
@@ -72,15 +77,30 @@ export class PanierControler extends Controler {
         this.showPagingButtons();
 
         $('#btBuyCart').click(() => {
-            if(CartService.getInstance().payCart() != "Erreur") {
+            if (CartService.getInstance().payCart() != "Erreur") {
                 this.showProducts(0);
                 this.showPagingButtons();
-                $('#productList').append('<div>Votre commande à bien été passée</div>')
+
+
+                $('#panierBody').append('<div class="alert-success">Monsieur Marc Assin, votre commande n° ' + this.makeid() + ' à bien été passée et sera livrée chez vous au 666 rue de Satan très prochainement.</div>')
             } else {
-                alert('Erreur, payement invalide');
+                $('#panierBody').append('<div class="alert-danger">Erreur payement invalide</div>')
+
             }
 
         });
+    }
+
+    private makeid(): string {
+        var text = "";
+        var possibleInt = "0123456789";
+        var possibleChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+        for (var i = 0; i < 5; i++)
+            text += possibleInt.charAt(Math.floor(Math.random() * possibleInt.length));
+
+        for (var i = 0; i < 9; i++)
+            text += possibleChar.charAt(Math.floor(Math.random() * possibleChar.length));
+        return text;
     }
 
     public shows(): void {
