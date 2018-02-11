@@ -19,10 +19,9 @@ export class AdminControler extends Controler {
             let i: number = 0;
             // Affichage des produits
             products.forEach(product => {
-                if (i == 5)
-                    $('#productList').append('<div class="w-100"></div>');
+                
                 // On rempli le conteneur
-                $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="width:33%"> <div class="card-body">' +
+                $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm-4 productBox" style="width:33%"> <div class="card-body">' +
                     '<h4 class="card-title"> ' + product.getName() + '</h4>' +
                     '<img class="card-img-top" src="http://lorempixel.com/200/200" style="height:18%; width:auto;" alt="Card image">'+
                     '<div>' + product.getPrice() + '$CA<br/></div>' +

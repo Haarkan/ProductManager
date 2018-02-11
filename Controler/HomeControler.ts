@@ -5,6 +5,7 @@ import { Product } from "../Model/ProductType";
 import { ProductsService } from "../Services/ProductsService";
 import { View } from "../View/View";
 import { ProductModal } from "../DynamicComponents/ProductModal";
+import { CartService } from "../Services/CartService";
 
 export class HomeControler extends Controler {
 
@@ -18,11 +19,10 @@ export class HomeControler extends Controler {
             let i : number = 0;
             // Affichage des produits
             products.forEach(product => {
-                if(i == 5)
-                    $('#productList').append('<div class="w-100"></div>');
+         
                 // On rempli le conteneur
                 // 1 produit = 1 card. PROBLEME : l'image reste la même :(
-                $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm productBox" style="text-align:center;"> <div class="card-body">' +
+                $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm-4 productBox" style="text-align:center;"> <div class="card-body">' +
                     '<h4 class="card-title"> '+ product.getName() + '</h4>'  +
                     '<img class="card-img-top" src="http://lorempixel.com/200/200" style="height:18%; width:auto;" alt="Card image">'+
                     '<div>' +  product.getPrice() + '$CA<br/></div>' +
@@ -35,8 +35,10 @@ export class HomeControler extends Controler {
                 });
                 // Click sur ajouter au panier
                 $(document).off('click', '.btAddToCart' + product.getId()).on('click', '.btAddToCart' + product.getId(), () => {
-                    alert('ici gérer ajout au panier ---- produit n°' + product.getId());
+                    CartService.getInstance().addProductToCart(product);
+                    alert('Le produit à bien été ajouté au panier');
                 });
+
 
                 ++i;
             });

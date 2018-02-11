@@ -19,20 +19,20 @@ let homeControler: HomeControler = new HomeControler();
 
 homeControler.load();
 
-let adminControler : AdminControler = new AdminControler();
-let connectionControler :ConnectionControler = new ConnectionControler();
-let panierControler :PanierControler = new PanierControler();
+let adminControler: AdminControler = new AdminControler();
+let connectionControler: ConnectionControler = new ConnectionControler();
+let panierControler: PanierControler = new PanierControler();
 
 
-let isUserConnected : boolean = false;
+let isUserConnected: boolean = false;
 $(document).ready(() => {
     // Gestion du menu :
-        // connexion
-    $('#connectionNav').click (() => {
+    // connexion
+    $('#connectionNav').click(() => {
         homeControler.unload();
         connectionControler.load();
 
-        $(document).on('submit', '#connectionForm', () => { 
+        $(document).on('submit', '#connectionForm', () => {
             if (connectionControler.connectUser($('#username').val(), $('#pwd').val()) == 'OK') {
                 connectionControler.unload();
                 adminControler.load();
@@ -41,7 +41,7 @@ $(document).ready(() => {
         });
     });
 
-        // home
+    // home
     $('#home').click(() => {
         if (isUserConnected) {
             homeControler.unload();
@@ -54,10 +54,13 @@ $(document).ready(() => {
     });
 
     // panier
-    $('#panierNav').click (() => {
+    $('#panierNav').click(() => {
         homeControler.unload();
+        adminControler.unload();
+        connectionControler.unload();
+
         panierControler.load();
     });
-    
+
 });
 // Ici mettre la gestion de changement de controleur lors d'un click sur un bouton du menu

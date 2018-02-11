@@ -14,13 +14,13 @@ export class ConnectionControler extends Controler {
 
     }
 
-
     public load () : void {
         this.display();
         $(document).on('submit', '#connectionForm', () => {
             this.connectUser($('#username').val(), $('#pwd').val());
         });
     }
+    
     public connectUser(username: string, password: string): string {
         if (this.usersService.isConnectionApproved(username, password)) {
             console.log('connecté');
