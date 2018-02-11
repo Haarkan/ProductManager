@@ -55,7 +55,9 @@ export class PanierControler extends Controler {
 
     }
     public showTotal(total:number): void{
-        $('#prixAPayer').append('<p> Total :'+ total +'$CA </br> Total avec taxes : '+ (total*1.1) + '$CA </p>');
+        $('#prixAPayer').html('');
+        let totalTaxes : number = total*1.1;
+        $('#prixAPayer').append('<p> Total :'+ total +'$CA </br> Total avec taxes : '+ totalTaxes + '$CA </p>');
     }
 
     public showPagingButtons(): void {
