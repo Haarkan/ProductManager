@@ -24,6 +24,7 @@ export class PanierControler extends Controler {
 
         let i: number = 0;
         // Affichage des produits
+        let total : number = 0;
         products.forEach(product => {
 
             // On rempli le conteneur
@@ -45,12 +46,18 @@ export class PanierControler extends Controler {
                 this.showProducts(0);
                 this.showPagingButtons();
             });
-
+            total += product.getPrice();
             ++i;
         });
+        this.showTotal(total);
 
 
 
+    }
+    public showTotal(total:number): void{
+        $('#prixAPayer').html('');
+        let totalTaxes : number = total*1.1;
+        $('#prixAPayer').append('<p> Total :'+ total +'$CA </br> Total avec taxes : '+ totalTaxes + '$CA </p>');
     }
 
     public showPagingButtons(): void {
