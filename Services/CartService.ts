@@ -36,6 +36,7 @@ export class CartService {
             if (finded.getId() == product.getId()) {
                 this.fakeDataBase.splice(this.fakeDataBase.indexOf(finded), 1);
                 message = "Element supprimé du panier avec succès"
+                
             }
         });
         return message;

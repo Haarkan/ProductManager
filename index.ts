@@ -6,6 +6,9 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './out/Styles/home.css';
+import './node_modules/toastr/build/toastr.css';
+
+
 import * as $ from 'jquery';
 import { ConnectionControler } from "./Controler/ConnectionControler";
 import { PanierControler } from "./Controler/PanierControler";

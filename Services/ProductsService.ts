@@ -45,29 +45,37 @@ export class ProductsService {
 
     }
 
-    public deleteProduct (product : Product) : string {
-        let message : string = "Erreur"
+    public deleteProduct(product: Product): string {
+        let message: string = "Erreur"
         this.fakeDataBase.forEach(finded => {
             if (finded.getId() == product.getId()) {
                 this.fakeDataBase.splice(this.fakeDataBase.indexOf(finded), 1);
-                message = "Element supprimé avec succès"
+               
+                message = "Le produit " + product.getName() + " à bien été supprimé !";
             }
         });
         return message;
     }
 
-    public editProduct(product: Product, newName : string, newDescription : string, newPrice : number): string {
+    public editProduct(product: Product, newName: string, newDescription: string, newPrice: number): string {
         this.fakeDataBase.forEach(finded => {
             if (finded.getId() == product.getId()) {
                 finded.setName(newName);
                 finded.setDescription(newDescription);
                 finded.setPrice(newPrice);
-                return "Produit modifié";
+             
+                return "Le produit " + newName + " à bien été modifié";
             }
         });
 
         return "erreur";
-        
+
+    }
+
+    public addProduct(product: Product) : string {
+        product.setId(ProductsService.getInstance().countProducts());
+        this.fakeDataBase.push(product);
+        return "Le produit " + product.getName() + " à bien été créé !";
     }
 
     public getTenProduct(range: number): Array<Product> {

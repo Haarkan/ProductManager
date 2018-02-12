@@ -37,4 +37,8 @@ export class Product {
     setPrice (price : number) : void {
         this.price = price;
     }
+
+    setId (id : number) : void {
+        this.id = id;
+    }
 }
