@@ -58,16 +58,17 @@ export class ProductsService {
     }
 
     public editProduct(product: Product, newName: string, newDescription: string, newPrice: number): string {
+        let msg : string = 'erreur';
         this.fakeDataBase.forEach(finded => {
             if (finded.getId() == product.getId()) {
                 finded.setName(newName);
                 finded.setDescription(newDescription);
                 finded.setPrice(newPrice);
-                return "Le produit " + newName + " à bien été modifié";
+                msg =  "Le produit " + newName + " à bien été modifié";
             }
         });
 
-        return "erreur";
+        return msg;
 
     }
 

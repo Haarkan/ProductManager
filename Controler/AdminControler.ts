@@ -42,7 +42,7 @@ export class AdminControler extends Controler {
                 if (editMsg != "Erreur") {
                     this.showProducts(0);
                     this.showPagingButtons();
-                    toastr.success('Le produit ' + editMsg + ' à bien été supprimé !');
+                    toastr.success(editMsg);
 
                 }
             });
@@ -53,7 +53,7 @@ export class AdminControler extends Controler {
                 let editMsg: string = this.editProduct(product, $('#editName').val(), $('#editDescription').val(), pr);
                 if (editMsg != "Erreur") {
                     this.showProducts(0);
-                    toastr.success('Le produit ' + editMsg + ' à bien été modifié !');
+                    toastr.success(editMsg);
                 }
             });
             // Click sur ajouter au panier 
@@ -108,7 +108,7 @@ export class AdminControler extends Controler {
 
                 this.showProducts(0);
                 this.showPagingButtons();
-                toastr.success('Le produit ' + creationMsg + ' à bien été créé !');
+                toastr.success(creationMsg);
             });
         });
 
