@@ -35,8 +35,8 @@ export class PanierControler extends Controler {
                 '<h4 class="card-title"> ' + product.getName() + '</h4>' +
                 '<img class="card-img-top" src="http://lorempixel.com/200/200" style="height:18%; width:auto;" alt="Card image">' +
                 '<div>' + product.getPrice() + '$CA<br/></div>' +
-                '<button type="button" class="btPlus btPlus' + product.getId() + ' btn btn-info">+</button>' +
-                '<button type="button" class="btRemoveFromCart' + product.getId() + ' btn btn-danger">Retirer du panier</button></div></div><br/>');
+                '<button type="button" class="btPlus btPlus' + product.getId() + ' btn btn-info"><i class="material-icons">zoom_in</i></button>' +
+                '<button type="button" class="btRemoveFromCart' + product.getId() + ' btn btn-danger"><i class="material-icons">delete</i></button></div></div><br/>');
             // Click sur le produit => on affiche les détails dans un modal
 
             $(document).off('click', '.btPlus' + product.getId()).on('click', '.btPlus' + product.getId(), () => {
