@@ -7,6 +7,7 @@ import { ProductsService } from "../Services/ProductsService";
 import { ProductModal } from "../DynamicComponents/ProductModal";
 import { PanierView } from "../View/PanierView";
 import { CartService } from "../Services/CartService";
+import * as toastr from 'toastr';
 
 export class PanierControler extends Controler {
 
@@ -45,6 +46,7 @@ export class PanierControler extends Controler {
                 CartService.getInstance().deleteProduct(product);
                 this.showProducts(0);
                 this.showPagingButtons();
+                toastr.success('Le produit ' + product.getName() + ' à bien été retiré de votre panier !');
             });
             total += product.getPrice();
             ++i;

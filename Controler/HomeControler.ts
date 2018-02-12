@@ -6,7 +6,7 @@ import { ProductsService } from "../Services/ProductsService";
 import { View } from "../View/View";
 import { ProductModal } from "../DynamicComponents/ProductModal";
 import { CartService } from "../Services/CartService";
-
+import * as toastr from 'toastr';
 export class HomeControler extends Controler {
 
     public showProducts(range: number): void {
@@ -36,7 +36,7 @@ export class HomeControler extends Controler {
                 // Click sur ajouter au panier
                 $(document).off('click', '.btAddToCart' + product.getId()).on('click', '.btAddToCart' + product.getId(), () => {
                     CartService.getInstance().addProductToCart(product);
-                    alert('Le produit à bien été ajouté au panier');
+                    toastr.success('Le produit ' + product.getName() + ' a bien été ajouté à votre panier !');
                 });
 
 
