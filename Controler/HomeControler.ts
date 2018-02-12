@@ -6,10 +6,9 @@ import { ProductsService } from "../Services/ProductsService";
 import { View } from "../View/View";
 import { ProductModal } from "../DynamicComponents/ProductModal";
 import { CartService } from "../Services/CartService";
-import * as toastr from 'toastr';
+
 export class HomeControler extends Controler {
 
-    // affichage des produits
     public showProducts(range: number): void {
         let products: Array<Product> = ProductsService.getInstance().getTenProduct(range);
         // On vide le conteneur
@@ -17,45 +16,44 @@ export class HomeControler extends Controler {
 
         // Gestion du DOM
 
-        let i: number = 0;
-        // Affichage des produits
-        products.forEach(product => {
+            let i : number = 0;
+            // Affichage des produits
+            products.forEach(product => {
+         
+                // On rempli le conteneur
+                // 1 produit = 1 card. PROBLEME : l'image reste la même :(
+                $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm-4 productBox" style="text-align:center;"> <div class="card-body">' +
+                    '<h4 class="card-title"> '+ product.getName() + '</h4>'  +
+                    '<img class="card-img-top" src="http://lorempixel.com/200/200" style="height:18%; width:auto;" alt="Card image">'+
+                    '<div>' +  product.getPrice() + '$CA<br/></div>' +
+                    '<button type="button" class="btPlus btPlus' + product.getId() + ' btn btn-info"><i class="material-icons">zoom_in</i></button>' +
+                    '<button type="button" class="btAddToCart' + product.getId() + ' btn btn-success"><i class="material-icons">add_shopping_cart</i></button></div></div><br/>');
+                // Click sur le produit => on affiche les détails dans un modal
 
-            // On rempli le conteneur
-            // 1 produit = 1 card. PROBLEME : l'image reste la même :(
-            $('#productList').append('<div id="product' + product.getId() + '" class="card col-sm-4 productBox" style="text-align:center;"> <div class="card-body">' +
-                '<h4 class="card-title"> ' + product.getName() + '</h4>' +
-                '<img class="card-img-top" src="http://lorempixel.com/200/200" style="height:18%; width:auto;" alt="Card image">' +
-                '<div>' + product.getPrice() + '$CA<br/></div>' +
-                '<button type="button" class="btPlus btPlus' + product.getId() + ' btn btn-info">+</button>' +
-                '<button type="button" class="btAddToCart' + product.getId() + ' btn btn-success">Ajouter au panier</button></div></div><br/>');
-            // Click sur le produit => on affiche les détails dans un modal
+                $(document).off('click', '.btPlus' + product.getId()).on('click', '.btPlus' + product.getId(), () => {
+                    let modal: ProductModal = new ProductModal(product, 'modal');
+                });
+                // Click sur ajouter au panier
+                $(document).off('click', '.btAddToCart' + product.getId()).on('click', '.btAddToCart' + product.getId(), () => {
+                    CartService.getInstance().addProductToCart(product);
+                    alert('Le produit à bien été ajouté au panier');
+                });
 
-            $(document).off('click', '.btPlus' + product.getId()).on('click', '.btPlus' + product.getId(), () => {
-                let modal: ProductModal = new ProductModal(product, 'modal');
+
+                ++i;
             });
-            // Click sur ajouter au panier
-            $(document).off('click', '.btAddToCart' + product.getId()).on('click', '.btAddToCart' + product.getId(), () => {
-                CartService.getInstance().addProductToCart(product);
-                toastr.success('Le produit ' + product.getName() + ' a bien été ajouté à votre panier !');
-            });
-
-
-            ++i;
-        });
 
 
 
     }
 
-    // boutons de pagination
     public showPagingButtons(): void {
         let nbProducts: number = ProductsService.getInstance().countProducts();
-        let nbBt: number = 1;
         for (let i: number = 0; i < nbProducts; ++i) {
-            if (i % 9 == 0) {
-                $('#pageSelection').append('<button type="button" id="btnPageProduct' + i + '" class="btn">' + nbBt + '</button>');
-                ++nbBt;
+
+            if (i % 10 == 0) {
+                    $('#pageSelection').append('<button type="button" id="btnPageProduct' + i + '" class="btn">' + (i + 10) / 10 + '</button>');
+
                 $(document).on('click', '#btnPageProduct' + i, () => {
                     this.showProducts(i);
                 });
@@ -64,7 +62,7 @@ export class HomeControler extends Controler {
         }
     }
 
-    public load(): void {
+    public load () : void {
 
         // la page html est chargée après l'appel des show
         this.display();
@@ -72,13 +70,13 @@ export class HomeControler extends Controler {
         this.showPagingButtons();
     }
 
-    public shows(): void {
-
+    public shows () : void {
+        
     }
     constructor() {
         super(new HomeView());
 
-
+      
     }
 
 
