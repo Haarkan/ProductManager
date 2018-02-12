@@ -11,6 +11,7 @@ import * as toastr from 'toastr';
 
 export class PanierControler extends Controler {
 
+    // affichage des produits et évenements
     public showProducts(range: number): void {
         let products: Array<Product> = CartService.getInstance().getTenProduct(range);
         // On vide le conteneur
@@ -56,20 +57,24 @@ export class PanierControler extends Controler {
 
 
     }
+
+    // total du panier
     public showTotal(total:number): void{
         $('#prixAPayer').html('');
         let totalTaxes : number = total*1.1;
         $('#prixAPayer').append('<p> Total :'+ total +'$CA </br> Total avec taxes : '+ totalTaxes + '$CA </p>');
     }
 
+    // affichage des boutons de pagination
     public showPagingButtons(): void {
         let nbProducts: number = CartService.getInstance().countProducts();
         $('#pageSelection').html('');
+        let nbBt : number = 1;
         for (let i: number = 0; i < nbProducts; ++i) {
 
-            if (i % 10 == 0) {
-                $('#pageSelection').append('<button type="button" id="btnPageProductCart' + i + '" class="btn">' + (i + 10) / 10 + '</button>');
-
+            if (i % 9 == 0) {
+                $('#pageSelection').append('<button type="button" id="btnPageProductCart' + i + '" class="btn">' + nbBt + '</button>');
+                ++nbBt;
                 $(document).on('click', '#btnPageProductCart' + i, () => {
                     this.showProducts(i);
                 });
@@ -91,15 +96,16 @@ export class PanierControler extends Controler {
                 this.showPagingButtons();
 
 
-                $('#panierBody').append('<div class="alert-success">Monsieur Marc Assin, votre commande n° ' + this.makeid() + ' à bien été passée et sera livrée chez vous au 666 rue de Satan très prochainement.</div>')
+                $('#msgBox').append('<div class="alert-success">Monsieur Marc Assin, votre commande n° ' + this.makeid() + ' à bien été passée et sera livrée chez vous au 666 rue de Satan très prochainement.</div>')
             } else {
-                $('#panierBody').append('<div class="alert-danger">Erreur payement invalide</div>')
+                $('#msgBox').append('<div class="alert-danger">Erreur payement invalide</div>')
 
             }
 
         });
     }
 
+    // id de la transaction
     private makeid(): string {
         var text = "";
         var possibleInt = "0123456789";

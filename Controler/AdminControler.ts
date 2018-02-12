@@ -75,10 +75,12 @@ export class AdminControler extends Controler {
     public showPagingButtons(): void {
         $('#pageSelection').html('');
         let nbProducts: number = ProductsService.getInstance().countProducts();
+        let nbBt : number = 1;
         for (let i: number = 0; i < nbProducts; ++i) {
             // on crée un bouton tout les 10 produits
-            if (i % 10 == 0) {
-                $('#pageSelection').append('<button type="button" id="btnPageProductAdmin' + i + '" class="btn">' + (i + 10) / 10 + '</button>');
+            if (i % 9 == 0) {
+                $('#pageSelection').append('<button type="button" id="btnPageProductAdmin' + i + '" class="btn">' + nbBt + '</button>');
+                ++ nbBt;
                 $(document).off('click', '#btnPageProductAdmin' + i).on('click', '#btnPageProductAdmin' + i, () => {
                     this.showProducts(i);
                 });

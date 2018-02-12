@@ -58,9 +58,9 @@ export class CartService {
     public getTenProduct(range: number): Array<Product> {
 
         if (range != 0)
-            return this.fakeDataBase.slice(range, range + 10);
+            return this.fakeDataBase.slice(range, range + 9);
         else
-            return this.fakeDataBase.slice(0, 10);
+            return this.fakeDataBase.slice(0, 9);
 
 
 

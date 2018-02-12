@@ -1,5 +1,8 @@
+body {
+    background-color: #b3bdce; 
+}
+
 .productBox {
-    /* MAIS POURQUOI IL PREND RIEN EN COMPTE AZIDNZJKD ZAZAJK DZANFZA FJFKZANZAJK */
     -webkit-transition: background-color 250ms linear;
     -moz-transition: background-color 250ms linear;
     -o-transition: background-color 250ms linear;
@@ -9,7 +12,7 @@
 }
 
 .productBox:hover {
-    background-color:#cdd2d8;
+    background-color : #b3bdce;
     
 }
 
